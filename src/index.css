@@ -49,9 +49,9 @@
   }
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scaleY(0.15); }
-  50%       { transform: scaleY(1); }
+@keyframes waveform-pulse {
+  0%, 100% { transform: scaleY(0.1); opacity: 0.8}
+  50%       { transform: scaleY(1); opacity: 1 }
 }
 
 @keyframes ticker {
@@ -65,7 +65,9 @@
 }
 
 .animate-pulse-waveform {
-  animation: pulse 1.1s ease-in-out infinite;
+  animation: waveform-pulse 1.3s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
 }
 
 .animate-ticker {

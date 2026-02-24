@@ -48,7 +48,7 @@ export default function Hero() {
           {WAVEFORM_BARS.map((bar, i) => (
             <rect
               key={i}
-              className="origin-center animate-pulse-waveform"
+              className="animate-pulse-waveform"
               x={bar.x}
               y="40"
               width="20"
