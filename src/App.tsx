@@ -1,0 +1,30 @@
+import Nav from "./components/Nav";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import About from "./components/About";
+import GearMarquee from "./components/GearMarquee";
+import GearInventory from "./components/GearInventory";
+import Process from "./components/Process";
+import Shows from "./components/Shows";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import { useFadeIn } from "./hooks/useFadeIn";
+
+export default function App() {
+  useFadeIn();
+
+  return (
+    <>
+      <Nav />
+      <Hero />
+      <Services />
+      <About />
+      <GearMarquee />
+      <GearInventory />
+      <Process />
+      <Shows />
+      <Contact />
+      <Footer />
+    </>
+  );
+}
