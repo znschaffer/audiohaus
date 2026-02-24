@@ -2,71 +2,19 @@ import { SERVICES } from "../content";
 
 export default function Services() {
   return (
-    <section className="services" id="services">
-      <style>{`
-        .services {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-        }
-
-        .service_card {
-          padding: 56px 32px;
-          border-right: var(--rule);
-          border-bottom: var(--rule);
-          transition: background 0.25s;
-        }
-
-        .service_card:last-child {
-          border-right: none;
-        }
-
-        .service_card:hover {
-          background: #111;
-        }
-
-        .service_num {
-          font-size: 10px;
-          color: var(--grey);
-          letter-spacing: 0.2em;
-          margin-bottom: 40px;
-          display: block;
-        }
-
-        .service_icon {
-          font-size: 32px;
-          margin-bottom: 24px;
-          display: block;
-          filter: grayscale(1);
-        }
-
-        .service_title {
-          font-family: "Bebas Neue", sans-serif;
-          font-size: 28px;
-          letter-spacing: 0.05em;
-          margin-bottom: 16px;
-        }
-
-        .service_desc {
-          font-size: 11px;
-          line-height: 1.9;
-          color: var(--grey);
-        }
-
-        @media (max-width: 900px) {
-          .services { grid-template-columns: 1fr 1fr; }
-          .service_card:nth-child(2n) { border-right: none; }
-        }
-      `}</style>
+    <section className="grid grid-cols-2 md:grid-cols-4" id="services">
       {SERVICES.map((s, i) => (
         <div
           key={s.num}
-          className="service_card fade-in"
+          className="p-8 md:p-14 border-r border-b border-rule last:border-r-0 md:last:border-r transition-colors duration-250 hover:bg-[#111] md:nth-[4n]:border-r-0 fade-in"
           style={{ transitionDelay: `${i * 80}ms` }}
         >
-          <span className="service_num">{s.num}</span>
-          <span className="service_icon">{s.icon}</span>
-          <h3 className="service_title">{s.title}</h3>
-          <p className="service_desc">{s.desc}</p>
+          <span className="block text-[10px] text-grey tracking-[0.2em] mb-10">
+            {s.num}
+          </span>
+          <span className="block text-3xl mb-6 grayscale">{s.icon}</span>
+          <h3 className="font-bebas text-3xl tracking-wider mb-4">{s.title}</h3>
+          <p className="text-[11px] leading-[1.9] text-grey">{s.desc}</p>
         </div>
       ))}
     </section>

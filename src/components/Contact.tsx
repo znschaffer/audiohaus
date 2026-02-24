@@ -46,214 +46,75 @@ export default function Contact() {
   };
 
   return (
-    <section className="contact" id="contact">
-      <style>{`
-        .contact {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .contact_info {
-          padding: 80px 56px;
-          border-right: var(--rule);
-        }
-
-        .contact_heading {
-          font-family: "Bebas Neue", sans-serif;
-          font-size: 96px;
-          line-height: 0.88;
-          margin-bottom: 48px;
-          letter-spacing: 0.01em;
-        }
-
-        .contact_heading em {
-          font-style: normal;
-          display: block;
-          color: transparent;
-          -webkit-text-stroke: 1px var(--white);
-        }
-
-        .contact_detail {
-          margin-bottom: 32px;
-        }
-
-        .contact_detailLabel {
-          font-size: 10px;
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          color: var(--grey);
-          margin-bottom: 6px;
-        }
-
-        .contact_detailValue {
-          font-size: 15px;
-          color: var(--white);
-        }
-
-        .contact_detailValue a {
-          color: var(--white);
-          text-decoration: none;
-          border-bottom: 1px solid #333;
-          transition: border-color 0.2s;
-        }
-
-        .contact_detailValue a:hover {
-          border-color: var(--white);
-        }
-
-        .contact_formCol {
-          padding: 80px 56px;
-        }
-
-        .contact_group {
-          margin-bottom: 32px;
-        }
-
-        .contact_label {
-          font-size: 10px;
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          color: var(--grey);
-          display: block;
-          margin-bottom: 10px;
-        }
-
-        .contact_input,
-        .contact_select,
-        .contact_textarea {
-          width: 100%;
-          background: transparent;
-          border: none;
-          border-bottom: 1px solid #2a2a2a;
-          color: var(--white);
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 13px;
-          font-weight: 300;
-          padding: 10px 0;
-          outline: none;
-          transition: border-color 0.2s;
-          appearance: none;
-        }
-
-        .contact_select option {
-          background: var(--black);
-        }
-
-        .contact_input:focus,
-        .contact_select:focus,
-        .contact_textarea:focus {
-          border-bottom-color: var(--white);
-        }
-
-        .contact_textarea {
-          resize: none;
-          height: 80px;
-        }
-
-        .contact_error {
-          display: block;
-          margin-top: 6px;
-          font-size: 10px;
-          letter-spacing: 0.1em;
-          color: #d44;
-        }
-
-        .contact_submit {
-          background: var(--white);
-          color: var(--black);
-          border: none;
-          padding: 16px 40px;
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 11px;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          cursor: crosshair;
-          transition: background 0.2s, color 0.2s, outline 0.2s;
-          margin-top: 8px;
-        }
-
-        .contact_submit:hover:not(:disabled) {
-          background: transparent;
-          color: var(--white);
-          outline: 1px solid var(--white);
-        }
-
-        .contact_submit:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-
-        .contact_successMsg {
-          margin-top: 20px;
-          font-size: 11px;
-          letter-spacing: 0.1em;
-          color: var(--grey);
-        }
-
-        .contact_errorMsg {
-          margin-top: 20px;
-          font-size: 11px;
-          letter-spacing: 0.1em;
-          color: #d44;
-        }
-
-        .contact_errorMsg a {
-          color: #d44;
-          text-decoration: underline;
-        }
-
-        @media (max-width: 900px) {
-          .contact { grid-template-columns: 1fr; }
-          .contact_info { border-right: none; border-bottom: var(--rule); }
-        }
-      `}</style>
+    <section className="grid grid-cols-1 md:grid-cols-2" id="contact">
       {/* Info column */}
-      <div className="contact_info">
-        <h2 className="contact_heading">
+      <div className="p-14 md:p-20 border-b border-rule md:border-b-0 md:border-r border-rule">
+        <h2 className="font-bebas text-[96px] leading-[0.88] mb-12 tracking-wider">
           {CONTACT.heading[0]}
           <br />
           {CONTACT.heading[1]}
           <br />
-          <em>{CONTACT.heading[2]}</em>
+          <em className="font-normal text-outline not-italic block">
+            {CONTACT.heading[2]}
+          </em>
         </h2>
         {CONTACT.details.map((d) => (
-          <div key={d.label} className="contact_detail">
-            <div className="contact_detailLabel">{d.label}</div>
-            <div className="contact_detailValue">
-              {d.href ? <a href={d.href}>{d.value}</a> : d.value}
+          <div key={d.label} className="mb-8 last:mb-0">
+            <div className="text-[10px] tracking-[0.25em] uppercase text-grey mb-1.5">
+              {d.label}
+            </div>
+            <div className="text-[15px] text-white">
+              {d.href ? (
+                <a
+                  href={d.href}
+                  className="text-white no-underline border-b border-[#333] transition-colors hover:border-white"
+                >
+                  {d.value}
+                </a>
+              ) : (
+                d.value
+              )}
             </div>
           </div>
         ))}
       </div>
 
       {/* Form column */}
-      <div className="contact_formCol">
+      <div className="p-14 md:p-20">
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* Name */}
-          <div className="contact_group">
-            <label className="contact_label" htmlFor="name">
+          <div className="mb-8">
+            <label
+              className="text-[10px] tracking-[0.25em] uppercase text-grey block mb-2.5"
+              htmlFor="name"
+            >
               Name
             </label>
             <input
               id="name"
-              className="contact_input"
+              className="w-full bg-transparent border-none border-b border-[#2a2a2a] text-white font-mono text-[13px] font-light py-2.5 outline-none transition-colors focus:border-white appearance-none"
               type="text"
               placeholder="Your name or organization"
               {...register("name", { required: "Name is required" })}
             />
             {errors.name && (
-              <span className="contact_error">{errors.name.message}</span>
+              <span className="block mt-1.5 text-[10px] tracking-wider text-[#d44]">
+                {errors.name.message}
+              </span>
             )}
           </div>
 
           {/* Email */}
-          <div className="contact_group">
-            <label className="contact_label" htmlFor="email">
+          <div className="mb-8">
+            <label
+              className="text-[10px] tracking-[0.25em] uppercase text-grey block mb-2.5"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
               id="email"
-              className="contact_input"
+              className="w-full bg-transparent border-none border-b border-[#2a2a2a] text-white font-mono text-[13px] font-light py-2.5 outline-none transition-colors focus:border-white appearance-none"
               type="email"
               placeholder="your@email.com"
               {...register("email", {
@@ -265,42 +126,54 @@ export default function Contact() {
               })}
             />
             {errors.email && (
-              <span className="contact_error">{errors.email.message}</span>
+              <span className="block mt-1.5 text-[10px] tracking-wider text-[#d44]">
+                {errors.email.message}
+              </span>
             )}
           </div>
 
           {/* Event type */}
-          <div className="contact_group">
-            <label className="contact_label" htmlFor="eventType">
+          <div className="mb-8">
+            <label
+              className="text-[10px] tracking-[0.25em] uppercase text-grey block mb-2.5"
+              htmlFor="eventType"
+            >
               Event Type
             </label>
             <select
               id="eventType"
-              className="contact_select"
+              className="w-full bg-transparent border-none border-b border-[#2a2a2a] text-white font-mono text-[13px] font-light py-2.5 outline-none transition-colors focus:border-white appearance-none"
               {...register("eventType", {
                 required: "Please select an event type",
               })}
             >
-              <option value="">Select type...</option>
+              <option value="" className="bg-black">
+                Select type...
+              </option>
               {CONTACT.eventTypes.map((t) => (
-                <option key={t} value={t}>
+                <option key={t} value={t} className="bg-black">
                   {t}
                 </option>
               ))}
             </select>
             {errors.eventType && (
-              <span className="contact_error">{errors.eventType.message}</span>
+              <span className="block mt-1.5 text-[10px] tracking-wider text-[#d44]">
+                {errors.eventType.message}
+              </span>
             )}
           </div>
 
           {/* Date & venue */}
-          <div className="contact_group">
-            <label className="contact_label" htmlFor="dateVenue">
+          <div className="mb-8">
+            <label
+              className="text-[10px] tracking-[0.25em] uppercase text-grey block mb-2.5"
+              htmlFor="dateVenue"
+            >
               Date &amp; Venue
             </label>
             <input
               id="dateVenue"
-              className="contact_input"
+              className="w-full bg-transparent border-none border-b border-[#2a2a2a] text-white font-mono text-[13px] font-light py-2.5 outline-none transition-colors focus:border-white appearance-none"
               type="text"
               placeholder="MM/DD/YYYY · Venue name or address"
               {...register("dateVenue")}
@@ -308,20 +181,23 @@ export default function Contact() {
           </div>
 
           {/* Notes */}
-          <div className="contact_group">
-            <label className="contact_label" htmlFor="notes">
+          <div className="mb-8">
+            <label
+              className="text-[10px] tracking-[0.25em] uppercase text-grey block mb-2.5"
+              htmlFor="notes"
+            >
               Notes
             </label>
             <textarea
               id="notes"
-              className="contact_textarea"
+              className="w-full bg-transparent border-none border-b border-[#2a2a2a] text-white font-mono text-[13px] font-light py-2.5 outline-none transition-colors focus:border-white appearance-none resize-none h-20"
               placeholder="Expected attendance, gear needs, anything else..."
               {...register("notes")}
             />
           </div>
 
           <button
-            className="contact_submit"
+            className="bg-white text-black border-none px-10 py-4 font-mono text-[11px] tracking-[0.2em] uppercase cursor-crosshair transition-all hover:enabled:bg-transparent hover:enabled:text-white hover:enabled:outline hover:enabled:outline-white disabled:opacity-50 disabled:cursor-not-allowed mt-2"
             type="submit"
             disabled={status === "sending"}
           >
@@ -329,14 +205,17 @@ export default function Contact() {
           </button>
 
           {status === "sent" && (
-            <p className="contact_successMsg">
+            <p className="mt-5 text-[11px] tracking-wider text-grey">
               ✓ Inquiry sent — we'll be in touch within 24 hours.
             </p>
           )}
           {status === "error" && (
-            <p className="contact_errorMsg">
+            <p className="mt-5 text-[11px] tracking-wider text-[#d44]">
               Something went wrong. Email us directly at{" "}
-              <a href={`mailto:${CONTACT.details[0].value}`}>
+              <a
+                href={`mailto:${CONTACT.details[0].value}`}
+                className="text-[#d44] underline"
+              >
                 {CONTACT.details[0].value}
               </a>
               .

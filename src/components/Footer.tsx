@@ -2,27 +2,12 @@ import { CONTACT, SITE } from "../content";
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <style>{`
-        .footer {
-          border-top: var(--rule);
-          padding: 32px 40px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .footer p {
-          font-size: 10px;
-          letter-spacing: 0.15em;
-          color: var(--grey);
-        }
-      `}</style>
-      <p>
+    <footer className="border-t border-rule px-10 py-8 flex justify-between items-center">
+      <p className="text-[10px] tracking-[0.15em] text-grey">
         &copy; {new Date().getFullYear()} {SITE.name}.{" "}
         {CONTACT.details[1].value}
       </p>
-      <p>{SITE.footer}</p>
+      <p className="text-[10px] tracking-[0.15em] text-grey">{SITE.footer}</p>
     </footer>
   );
 }

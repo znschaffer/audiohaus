@@ -3,96 +3,31 @@ import { PROCESS } from "../content";
 export default function Process() {
   return (
     <section id="process">
-      <style>{`
-        .process_header {
-          padding: 80px 40px 48px;
-          border-bottom: var(--rule);
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-        }
-
-        .process_heading {
-          font-family: "Bebas Neue", sans-serif;
-          font-size: 72px;
-          letter-spacing: 0.02em;
-        }
-
-        .process_intro {
-          font-size: 12px;
-          color: var(--grey);
-          max-width: 260px;
-          line-height: 1.8;
-          letter-spacing: 0.05em;
-        }
-
-        .process_steps {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          border-bottom: var(--rule);
-        }
-
-        .process_step {
-          padding: 56px 40px;
-          border-right: var(--rule);
-          position: relative;
-        }
-
-        .process_step:last-child {
-          border-right: none;
-        }
-
-        .process_step::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 40px;
-          right: 40px;
-          height: 2px;
-          background: linear-gradient(90deg, var(--white), transparent);
-        }
-
-        .process_stepNum {
-          font-family: "Bebas Neue", sans-serif;
-          font-size: 120px;
-          color: #1a1a1a;
-          line-height: 1;
-          margin-bottom: 16px;
-        }
-
-        .process_stepTitle {
-          font-family: "Bebas Neue", sans-serif;
-          font-size: 32px;
-          margin-bottom: 16px;
-          letter-spacing: 0.05em;
-        }
-
-        .process_stepDesc {
-          font-size: 12px;
-          line-height: 1.9;
-          color: var(--grey);
-        }
-
-        @media (max-width: 900px) {
-          .process_steps { grid-template-columns: 1fr; }
-          .process_step { border-right: none; border-bottom: var(--rule); }
-          .process_header { flex-direction: column; gap: 16px; }
-        }
-      `}</style>
-      <div className="process_header">
-        <h2 className="process_heading fade-in">
+      <div className="px-10 py-16 md:pt-20 md:pb-12 border-b border-rule flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-0">
+        <h2 className="font-bebas text-[72px] tracking-wider leading-none fade-in">
           {PROCESS.heading[0]}
           <br />
           {PROCESS.heading[1]}
         </h2>
-        <p className="process_intro fade-in">{PROCESS.intro}</p>
+        <p className="text-[12px] text-grey max-w-[260px] leading-[1.8] tracking-wider fade-in">
+          {PROCESS.intro}
+        </p>
       </div>
-      <div className="process_steps">
+      <div className="grid grid-cols-1 md:grid-cols-3 border-b border-rule">
         {PROCESS.steps.map((step) => (
-          <div key={step.num} className="process_step fade-in">
-            <div className="process_stepNum">{step.num}</div>
-            <h3 className="process_stepTitle">{step.title}</h3>
-            <p className="process_stepDesc">{step.desc}</p>
+          <div
+            key={step.num}
+            className="p-10 md:p-14 border-b md:border-b-0 md:border-r border-rule last:border-b-0 md:last:border-r-0 relative fade-in"
+          >
+            {/* Gradient line at top */}
+            <div className="absolute top-0 left-10 right-10 h-[2px] bg-linear-to-r from-white to-transparent" />
+            <div className="font-bebas text-[120px] text-[#1a1a1a] leading-none mb-4">
+              {step.num}
+            </div>
+            <h3 className="font-bebas text-[32px] mb-4 tracking-wider">
+              {step.title}
+            </h3>
+            <p className="text-[12px] leading-[1.9] text-grey">{step.desc}</p>
           </div>
         ))}
       </div>

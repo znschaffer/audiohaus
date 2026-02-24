@@ -5,9 +5,9 @@
 ## Tech Stack
 
 | Layer     | Tool                                                                      |
-| --------- | ------------------------------------------------------------------------- |
+| :-------- | :------------------------------------------------------------------------ |
 | Framework | [Vite](https://vitejs.dev/) + [React 18](https://react.dev/) + TypeScript |
-| Styling   | CSS Modules (scoped, per-component) + global `index.css`                  |
+| Styling   | [Tailwind CSS v4](https://tailwindcss.com/) (Utility-first, zero-runtime) |
 | Forms     | [react-hook-form](https://react-hook-form.com/)                           |
 | Email     | [@emailjs/browser](https://www.emailjs.com/docs/sdk/installation/)        |
 | Fonts     | Google Fonts — Bebas Neue, IBM Plex Mono                                  |
@@ -17,17 +17,17 @@
 ## Getting Started
 
 ```bash
-pnpm install
-pnpm run dev       # starts dev server at http://localhost:5173
-pnpm run build     # production build into /dist
-pnpm run preview   # serve the production build locally
+npm install
+npm run dev       # starts dev server at http://localhost:5173
+npm run build     # production build into /dist
+npm run preview   # serve the production build locally
 ```
 
 ---
 
 ## Project Structure
 
-```
+```text
 audiohaus/
 ├── vite.config.ts
 ├── tsconfig.json
@@ -74,65 +74,61 @@ Everything you see on the site is managed in **`src/content.ts`**. This is the o
 
 ---
 
-## Sections
+## Styling Conventions
+
+The project uses **Tailwind CSS v4** for all styling:
+
+- **`src/index.css`**: The main entry point. Imports Tailwind and defines the site's theme (colors like `black`, `white`, `grey`, and fonts like `font-mono`, `font-bebas`). It also contains custom `@layer` styles for global resets, the film-grain overlay, and keyframe animations.
+- **Utility Classes**: Component layout and styling are handled via Tailwind classes in the `.tsx` files (e.g., `flex`, `grid-cols-4`, `animate-ticker`).
+- **Responsive Layout**: Breakpoints are handled inline with prefix modifiers (e.g., `md:grid-cols-2`).
+- **Custom Utilities**: Global utilities like `.fade-in` (scroll animation) and `.text-outline` (outlined headers) are defined in `index.css`.
+- **Theme Variables**: All custom colors and borders are mapped to Tailwind theme variables (e.g., `border-rule`, `text-grey`).
+
+---
+
+## Components
+
+All components are responsive and utilize the `useFadeIn` hook for scroll-triggered entrance animations. They are strictly data-driven via `content.ts`.
 
 ### `<Nav>`
 
-Fixed top bar. Logo on the left, anchor links on the right. Links collapse (hidden) on mobile below 900 px.
+Fixed top bar. Logo on the left, anchor links on the right. Links collapse on screens below 768px (`md:` breakpoint).
 
 ### `<Hero>`
 
-Full-viewport split layout:
-
-- **Left column** — eyebrow label, large Bebas Neue headline with an outlined word, body copy, and a CTA button linking to `#contact`.
-- **Right column** — 15-bar animated SVG waveform (each bar pulses with a staggered `animation-delay`), plus a horizontally scrolling ticker of keywords at the bottom.
-
-The ticker list in `content.ts` (`HERO.ticker`) is automatically doubled in the component to create a seamless infinite loop.
+Full-viewport split layout featuring an animated SVG waveform (pulsing rects with staggered delays) and a horizontally scrolling ticker of keywords.
 
 ### `<Services>`
 
-A 4-column grid (2-column on mobile). Each card is driven by an item in `SERVICES`. Cards stagger their fade-in using an inline `transitionDelay` calculated from the array index.
+A grid of service cards (2 cols on mobile, 4 on desktop) with hover interactions.
 
 ### `<About>`
 
-A 3-column strip: a vertical rotated label, a large-text paragraph with an italic emphasis clause, and a column of three stats. All values are sourced from `ABOUT` in `content.ts`.
+A 3-section strip: rotated label, body text, and statistics.
 
 ### `<GearMarquee>`
 
-A horizontally scrolling banner of equipment names in large outlined Bebas Neue text. Items hover to reveal solid fill. Data comes from `GEAR_MARQUEE` (a short curated list). The array is doubled in the component for a seamless loop.
+An infinite scrolling banner of flagship equipment items using the `animate-marquee` utility.
 
 ### `<GearInventory>`
 
-A **full equipment inventory** section (`#gear`), added as a new section beyond the original HTML. Items are stored in `GEAR_INVENTORY` as an array of objects:
-
-```ts
-type GearItem = {
-  name: string; // e.g. "Shure SM58 Dynamic Vocal"
-  category: string; // e.g. "Microphones"
-  qty?: string; // e.g. "×16"
-};
-```
-
-The component groups items by `category` at render time and displays each group as a labeled column in a responsive 4-column grid (3 → 2 → 1 at breakpoints). To add or remove equipment, edit only the `GEAR_INVENTORY` array.
+A categorized list of all equipment. Automatically groups items by the `category` field from `content.ts`.
 
 ### `<Process>`
 
-Three-step "How It Works" walkthrough in a 3-column grid. Each step has a large ghost number, title, and description. A white-to-transparent gradient line sits above each card. Data comes from `PROCESS.steps`.
+A step-by-step walkthrough of the client workflow with custom gradient accents.
 
 ### `<Shows>`
 
-Two side-by-side panels — one dark (default), one inverted (white background). Each panel shows a tag, large title, description, and a set of category pills. Controlled by the `SHOWS` array; the `inverted: true` flag on an item applies the inverted colour scheme.
+Side-by-side panels for different event types. Supports an `inverted` flag for white-background themes.
 
 ### `<Contact>`
 
-Two-column layout:
-
-- **Left** — `"Let's Talk Sound"` heading (with an outlined word), plus contact details (email, phone, location, availability).
-- **Right** — enquiry form (see below).
+A split layout with brand info on the left and a functional inquiry form on the right.
 
 ### `<Footer>`
 
-Simple two-text footer bar. Both strings (`copyright`, `footer`) come from `SITE` in `content.ts`.
+Simple branding and copyright line.
 
 ---
 
@@ -142,84 +138,18 @@ The form uses **react-hook-form** for validation and **EmailJS** for delivery.
 
 ### Fields
 
-| Field        | Validation                         |
-| ------------ | ---------------------------------- |
-| Name         | Required                           |
-| Email        | Required, must match email pattern |
-| Event Type   | Required (select dropdown)         |
-| Date & Venue | Optional                           |
-| Notes        | Optional (textarea)                |
-
-Validation errors appear inline beneath each field. The submit button is disabled while sending.
-
-### Submission flow
-
-```
-User fills form
-  → handleSubmit (react-hook-form validates)
-    → emailjs.send(serviceId, templateId, templateParams, publicKey)
-      → success: show "✓ Inquiry sent" message, reset form
-      → error:   show error message with direct mailto fallback
-```
-
-The template parameters sent to EmailJS are:
-
-```ts
-{
-  from_name:  data.name,
-  from_email: data.email,
-  event_type: data.eventType,
-  date_venue: data.dateVenue,
-  notes:      data.notes,
-}
-```
+| Field        | Validation                    |
+| :----------- | :---------------------------- |
+| Name         | Required                      |
+| Email        | Required, valid email pattern |
+| Event Type   | Required (dropdown)           |
+| Date & Venue | Optional                      |
+| Notes        | Optional                      |
 
 ### EmailJS Setup
 
 1. Create a free account at [emailjs.com](https://www.emailjs.com/)
-2. Add an **Email Service** (Gmail, Outlook, etc.) — note the **Service ID**
-3. Create an **Email Template** — use `{{from_name}}`, `{{from_email}}`, `{{event_type}}`, `{{date_venue}}`, `{{notes}}` as template variables — note the **Template ID**
+2. Add an **Email Service** (note the **Service ID**)
+3. Create an **Email Template** using `{{from_name}}`, `{{from_email}}`, `{{event_type}}`, `{{date_venue}}`, `{{notes}}` (note the **Template ID**)
 4. Copy your **Public Key** from Account → API Keys
-5. Open `src/content.ts` and fill in:
-
-```ts
-// src/content.ts
-export const CONTACT = {
-  // ...
-  emailjs: {
-    serviceId: "YOUR_SERVICE_ID",
-    templateId: "YOUR_TEMPLATE_ID",
-    publicKey: "YOUR_PUBLIC_KEY",
-  },
-};
-```
-
----
-
-## Animations
-
-### Scroll fade-in
-
-Elements with the class `fade-in` start invisible (`opacity: 0`, `translateY(24px)`) and transition to visible when they enter the viewport. This is wired up by the `useFadeIn` hook, which is called once from `App.tsx` on mount.
-
-The hook uses `IntersectionObserver` with a `0.12` threshold and `unobserve`s each element after it has animated, so it only fires once per element.
-
-### Waveform
-
-The hero SVG waveform uses `scaleY` keyframes (`0.15 → 1 → 0.15`) with each bar offset by `0.08s`. The delays are computed from the bar's index and set as an inline `style` on each `<rect>`.
-
-### Gear marquee
-
-Both the hero ticker and the gear marquee use a CSS `translateX(0 → -50%)` keyframe animation on a container that holds two copies of the item list, creating a seamless loop.
-
----
-
-## Styling Conventions
-
-The project uses a consolidated styling approach:
-
-- **`src/index.css`**: Contains global design tokens (colors, borders), a CSS reset, and the film-grain overlay.
-- **In-Component CSS**: Each component's styles are defined within its `.tsx` file using `<style>` tags. This keeps the logic and presentation together without the need for separate `.module.css` files.
-- **Global Variables**: All component styles utilize the CSS variables defined in `index.css` (e.g., `var(--rule)`, `var(--black)`).
-- **Responsive Design**: Mobile-first grid adjustments are handled via `@media` queries within each component.
-- **Animations**: Scroll-triggered fade-ins (0.7s duration) and custom SVG/Ticker animations are scoped to their respective components.
+5. Update `src/content.ts` with these credentials.

@@ -2,94 +2,25 @@ import { SHOWS } from "../content";
 
 export default function Shows() {
   return (
-    <section className="shows" id="shows">
-      <style>{`
-        .shows {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          border-bottom: var(--rule);
-        }
-
-        .show_panel {
-          padding: 80px 56px;
-        }
-
-        .show_panel:first-child {
-          border-right: var(--rule);
-        }
-
-        .show_tag {
-          font-size: 10px;
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-          color: var(--grey);
-          margin-bottom: 24px;
-          display: block;
-        }
-
-        .show_title {
-          font-family: "Bebas Neue", sans-serif;
-          font-size: 64px;
-          line-height: 0.9;
-          margin-bottom: 32px;
-        }
-
-        .show_desc {
-          font-size: 12px;
-          line-height: 1.9;
-          color: var(--grey);
-          margin-bottom: 40px;
-          max-width: 380px;
-        }
-
-        .show_list {
-          list-style: none;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-
-        .show_list li {
-          font-size: 10px;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          border: 1px solid #2a2a2a;
-          padding: 6px 14px;
-          color: var(--grey);
-        }
-
-        /* Inverted (white bg) panel */
-        .show_panel.inverted {
-          background: var(--white);
-          color: var(--black);
-        }
-
-        .show_panel.inverted .show_tag,
-        .show_panel.inverted .show_desc {
-          color: #555;
-        }
-
-        .show_panel.inverted .show_title {
-          color: var(--black);
-        }
-
-        .show_panel.inverted .show_list li {
-          border-color: #ccc;
-          color: #444;
-        }
-
-        @media (max-width: 900px) {
-          .shows { grid-template-columns: 1fr; }
-          .show_panel:first-child { border-right: none; border-bottom: var(--rule); }
-        }
-      `}</style>
+    <section
+      className="grid grid-cols-1 md:grid-cols-2 border-b border-rule"
+      id="shows"
+    >
       {SHOWS.map((panel) => (
         <div
           key={panel.title.join("")}
-          className={`show_panel ${panel.inverted ? "inverted" : ""} fade-in`}
+          className={`p-14 md:p-20 border-b border-rule md:border-b-0 md:first:border-r border-rule last:border-b-0 fade-in ${
+            panel.inverted ? "bg-white text-black" : "bg-black text-white"
+          }`}
         >
-          <span className="show_tag">{panel.tag}</span>
-          <h2 className="show_title">
+          <span
+            className={`block text-[10px] tracking-[0.3em] uppercase mb-6 ${
+              panel.inverted ? "text-[#555]" : "text-grey"
+            }`}
+          >
+            {panel.tag}
+          </span>
+          <h2 className="font-bebas text-[64px] leading-[0.9] mb-8">
             {panel.title.map((line, i) => (
               <span key={i}>
                 {line}
@@ -97,10 +28,25 @@ export default function Shows() {
               </span>
             ))}
           </h2>
-          <p className="show_desc">{panel.desc}</p>
-          <ul className="show_list">
+          <p
+            className={`text-[12px] leading-[1.9] mb-10 max-w-[380px] ${
+              panel.inverted ? "text-[#555]" : "text-grey"
+            }`}
+          >
+            {panel.desc}
+          </p>
+          <ul className="flex flex-wrap gap-2 list-none">
             {panel.tags.map((t) => (
-              <li key={t}>{t}</li>
+              <li
+                key={t}
+                className={`text-[10px] tracking-[0.15em] uppercase border px-3.5 py-1.5 ${
+                  panel.inverted
+                    ? "border-[#ccc] text-[#444]"
+                    : "border-[#2a2a2a] text-grey"
+                }`}
+              >
+                {t}
+              </li>
             ))}
           </ul>
         </div>
