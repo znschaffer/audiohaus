@@ -1,0 +1,186 @@
+---
+import "../styles/index.css";
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    name: "AudioHaus",
+    url: "https://audioha.us",
+    telephone: "",
+    email: "booking@audioha.us",
+    image: "https://audioha.us/og-image.png",
+    priceRange: "$$",
+    openingHoursSpecification: [
+        {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            opens: "09:00",
+            closes: "18:00",
+        },
+    ],
+    address: {
+        "@type": "PostalAddress",
+        addressLocality: "Seattle",
+        addressRegion: "WA",
+        addressCountry: "US",
+    },
+    areaServed: [
+        {
+            "@type": "City",
+            name: "Seattle",
+            sameAs: "https://www.wikidata.org/wiki/Q5083",
+        },
+        { "@type": "City", name: "Bellevue" },
+        { "@type": "AdministrativeArea", name: "King County" },
+        { "@type": "AdministrativeArea", name: "Pacific Northwest" },
+    ],
+    sameAs: ["https://maps.app.goo.gl/1huWa9a2hkF6ABMa6"],
+    geo: {
+        "@type": "GeoCoordinates",
+        latitude: 47.61405,
+        longitude: -122.32078,
+    },
+    description:
+        "Seattle-based audio equipment rental and live sound engineering company serving concerts, festivals, and corporate events across the Pacific Northwest.",
+
+    makesOffer: [
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "Live Sound Engineering",
+                serviceType: "Live Sound",
+                description:
+                    "Professional on-site live sound engineering for concerts, festivals, and corporate events across Seattle and the Pacific Northwest.",
+            },
+        },
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "PA System Rental",
+                serviceType: "Audio Equipment Rental",
+                description:
+                    "Full-range PA system rental including line arrays, tops, and subwoofers for events of all sizes in Seattle and surrounding areas.",
+            },
+        },
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "Backline Rental",
+                serviceType: "Audio Equipment Rental",
+                description:
+                    "Backline rental including guitar amplifiers, bass amplifiers, and drum kits for touring artists and local productions in the Pacific Northwest.",
+            },
+        },
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "Microphone & DI Rental",
+                serviceType: "Audio Equipment Rental",
+                description:
+                    "Rental of professional microphones, DI boxes, and mic stands for live events, studio sessions, and corporate presentations.",
+            },
+        },
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "Festival & Multi-Stage Audio Production",
+                serviceType: "Event Production",
+                description:
+                    "End-to-end audio production for multi-stage festivals including system design, crew, and on-site engineering in the Pacific Northwest.",
+            },
+        },
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "Corporate AV & Event Production",
+                serviceType: "Corporate AV",
+                description:
+                    "Audio-visual production for corporate events, conferences, product launches, and private events in Seattle and King County.",
+            },
+        },
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "Stage & Production Management",
+                serviceType: "Event Production",
+                description:
+                    "Stage management and production coordination for live events, ensuring seamless execution from load-in to strike.",
+            },
+        },
+        {
+            "@type": "Offer",
+            itemOffered: {
+                "@type": "Service",
+                name: "Monitor Engineering",
+                serviceType: "Live Sound",
+                description:
+                    "Dedicated monitor mixing for live performances, providing artists with clear and accurate stage mixes using IEM and wedge systems.",
+            },
+        },
+    ],
+};
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,300;0,400;1,300&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="canonical" href="https://audioha.us/" />
+        <meta
+            name="google-site-verification"
+            content="UZ24zH79a-U3n-HayDOIqMfa5GrTfXX_2a_zN1V55IU"
+        />
+        <!-- Primary meta -->
+        <title>AudioHaus — Sound Rental & Live Engineers in Seattle</title>
+        <meta
+            name="description"
+            content="AudioHaus — Seattle sound rental and production. Full PA, subwoofers, microphones, and experienced live engineers for concerts, corporate events, and festivals. Book a quote today."
+        />
+
+        <!-- Open Graph -->
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta
+            property="og:title"
+            content="AudioHaus — Sound Rental & Live Engineers in Seattle"
+        />
+        <meta
+            property="og:description"
+            content="Full PA, subwoofers, microphones, and experienced live engineers for concerts, corporate events, and festivals in Seattle."
+        />
+        <meta property="og:url" content="https://audioha.us/" />
+        <meta property="og:image" content="https://audioha.us/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@your_twitter_handle" />
+        <meta
+            name="twitter:title"
+            content="AudioHaus — Sound Rental & Live Engineers in Seattle"
+        />
+        <meta
+            name="twitter:description"
+            content="Full PA, subwoofers, microphones, and experienced live engineers for concerts, corporate events, and festivals in Seattle."
+        />
+        <meta name="twitter:image" content="https://audioha.us/og-image.png" />
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>

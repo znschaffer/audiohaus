@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://audioha.us/sitemap.xml

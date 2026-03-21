@@ -1,17 +1,26 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav";
+import Hero from "../components/Hero";
+import Services from "../components/Services";
+import About from "../components/About";
+import GearMarquee from "../components/GearMarquee";
+import GearInventory from "../components/GearInventory";
+import Process from "../components/Process";
+import Shows from "../components/Shows";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+    <Nav />
+    <Hero />
+    <Services />
+    <About />
+    <GearMarquee />
+    <GearInventory />
+    <Process />
+    <Shows />
+    <Contact />
+    <Footer />
+</BaseLayout>
