@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://audioha.us/sitemap.xml
+Sitemap: https://audioha.us/sitemap-index.xml
