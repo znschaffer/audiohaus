@@ -6,16 +6,24 @@ const jsonLd = {
     "@type": ["LocalBusiness", "ProfessionalService"],
     name: "AudioHaus",
     url: "https://audioha.us",
-    telephone: "",
+    telephone: "+14256238317",
     email: "booking@audioha.us",
     image: "https://audioha.us/og-image.png",
     priceRange: "$$",
     openingHoursSpecification: [
         {
             "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            opens: "09:00",
-            closes: "18:00",
+            dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+            ],
+            opens: "00:00",
+            closes: "23:59",
         },
     ],
     address: {
@@ -168,7 +176,6 @@ const jsonLd = {
 
         <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@your_twitter_handle" />
         <meta
             name="twitter:title"
             content="AudioHaus — Sound Rental & Live Engineers in Seattle"
