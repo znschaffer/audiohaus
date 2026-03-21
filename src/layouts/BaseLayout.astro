@@ -1,4 +1,5 @@
 ---
+import { useFadeIn } from "../hooks/useFadeIn";
 import "../styles/index.css";
 const jsonLd = {
     "@context": "https://schema.org",
@@ -184,3 +185,25 @@ const jsonLd = {
         <slot />
     </body>
 </html>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add("visible");
+                    }, 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.12 },
+    );
+
+    const els = document.querySelectorAll(".fade-in");
+    els.forEach((el, i) => {
+        (el as HTMLElement).style.transitionDelay = `${i * 40}ms`;
+        observer.observe(el);
+    });
+</script>
