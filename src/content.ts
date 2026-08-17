@@ -243,7 +243,7 @@ export const CONTACT = {
   // ── EmailJS config ────────────────────────────────────────
   // Set these to your EmailJS service/template/public key.
   emailjs: {
-    serviceId: "service_y5gyel9",
+    serviceId: "service_py4wurw",
     templateId: "template_a78lo4m",
     publicKey: "iBy-lF8rkBMEKbj_t",
   },
